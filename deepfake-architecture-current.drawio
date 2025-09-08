@@ -1,0 +1,273 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
+  <diagram id="deepfake-arch" name="Deepfake Architecture">
+    <mxGraphModel dx="3966" dy="1201" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="Deepfake Detection Project – High-Level Architecture" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontStyle=1;fontSize=18;" parent="1" vertex="1">
+          <mxGeometry x="260" y="10" width="720" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="Data &amp; Preprocessing" style="swimlane;startSize=28;rounded=1;shadow=0;html=1;fillColor=#f5f5f5;strokeColor=#b3b3b3;" parent="1" vertex="1">
+          <mxGeometry x="20" y="60" width="380" height="1070" as="geometry" />
+        </mxCell>
+        <mxCell id="6" value="1) Datasets CelebDFv2 • DFDC (Kaggle) • Custom videos" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#1a73e8;fillColor=#dae8fc;" parent="3" vertex="1">
+          <mxGeometry x="40" y="100" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="7" value="2) Frame Extraction (ffmpeg) N frames/sec • Keyframes optional" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#fb8c00;fillColor=#ffe6cc;" parent="3" vertex="1">
+          <mxGeometry x="60" y="230" width="140" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="3) Face Detection &amp; Alignment (MTCNN)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#fb8c00;fillColor=#ffe6cc;" parent="3" vertex="1">
+          <mxGeometry x="40" y="360" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="4) Normalize &amp;amp; Resize to 224×224 (all splits)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#fb8c00;fillColor=#ffe6cc;" parent="3" vertex="1">
+          <mxGeometry x="60" y="480" width="140" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="5) Train/Val/Test Split" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#fb8c00;fillColor=#ffe6cc;" parent="3" vertex="1">
+          <mxGeometry x="40" y="620" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="11" value="6) Save Preprocessed Dataset (images + labels)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#6c757d;fillColor=#eeeeee;shape=mxgraph.flowchart.data;" parent="3" vertex="1">
+          <mxGeometry x="60" y="800" width="140" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="12" value="7) Class Balance &amp;amp; Counts" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#6c757d;fillColor=#eeeeee;shape=mxgraph.flowchart.data;" parent="3" vertex="1">
+          <mxGeometry x="40" y="960" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="3" source="6" target="7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="3" source="7" target="8" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="3" source="8" target="9" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="3" source="9" target="10" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="3" source="10" target="11" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="3" source="11" target="12" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="Training" style="swimlane;startSize=28;rounded=1;shadow=0;html=1;fillColor=#f5f5f5;strokeColor=#b3b3b3;" parent="1" vertex="1">
+          <mxGeometry x="410" y="60" width="1310" height="1980" as="geometry" />
+        </mxCell>
+        <mxCell id="21" value="1) Load Data PyTorch DataLoader (mixed precision)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#fb8c00;fillColor=#ffe6cc;" parent="4" vertex="1">
+          <mxGeometry x="110" y="60" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="22" value="3) Initialize EfficientNet-B0 (model architecture) trained using CelebDFv2 dataset" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#2e7d32;fillColor=#d5e8d4;" parent="4" vertex="1">
+          <mxGeometry x="110" y="300" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="23" value="4) Configure Loss &amp;amp; Optimizer BCEWithLogits • AdamW (+ scheduler)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#fb8c00;fillColor=#ffe6cc;" parent="4" vertex="1">
+          <mxGeometry x="20" y="430" width="340" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="24" value="5) Train epochs • checkpointing" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#fb8c00;fillColor=#ffe6cc;" parent="4" vertex="1">
+          <mxGeometry x="90" y="690" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="25" value="6a) Validation Metrics AUC • F1 • Accuracy" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#6c757d;fillColor=#eeeeee;shape=mxgraph.flowchart.data;" parent="4" vertex="1">
+          <mxGeometry x="220" y="870" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="27" value="6c) Model Checkpoints (.pth) Select best by AUC" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#6c757d;fillColor=#eeeeee;shape=mxgraph.flowchart.data;" parent="4" vertex="1">
+          <mxGeometry x="90" y="1740" width="200" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="30" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="4" source="21" target="22" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="4" source="22" target="23" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="32" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="4" source="23" target="24" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="4" source="24" target="25" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="35" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="4" source="24" target="27" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="26" value="6b) Logs &amp;amp; Plots loss • AUC curves" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#6c757d;fillColor=#eeeeee;shape=mxgraph.flowchart.data;" parent="4" vertex="1">
+          <mxGeometry y="870" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="4" source="24" target="26" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="4" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-210" y="830" as="sourcePoint" />
+            <mxPoint x="100" y="100" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-70" y="830" />
+              <mxPoint x="-70" y="100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-55" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="4" source="28" target="21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-56" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.974;entryY=0.063;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="4" source="28" target="23">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="390" y="480" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="390" y="435" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="4" target="24">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="319.9999999999991" y="725" as="targetPoint" />
+            <mxPoint x="469.9411764705883" y="130" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="470" y="725" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="28" value="Training Config batch size • lr • epochs • aug" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;strokeColor=#9e9e9e;fillColor=#fafafa;" parent="4" vertex="1">
+          <mxGeometry x="330" y="70" width="160" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-72" value="2) Online augmentation (loop listed below)" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#2e7d32;fillColor=#d5e8d4;" vertex="1" parent="4">
+          <mxGeometry x="110" y="180" width="160" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-96" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=-0.005;exitY=0.426;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="4" source="yOs-LsGh22BtAQMQu9jn-101">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="325" as="targetPoint" />
+            <mxPoint x="500" y="325" as="sourcePoint" />
+            <Array as="points">
+              <mxPoint x="547" y="325" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-100" value="&lt;b&gt;LOSS, OPTIMIZER &amp;amp; SCHEDULER&lt;/b&gt;&lt;div&gt;&lt;b&gt;General&amp;nbsp;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;• These define how we measure error and how we move the weights to reduce it.&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Parts &amp;amp; Why&amp;nbsp;&lt;/div&gt;&lt;div&gt;•&amp;nbsp;&lt;strong data-end=&quot;1273&quot; data-start=&quot;1252&quot;&gt;BCEWithLogitsLoss&lt;/strong&gt;&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;em data-end=&quot;1283&quot; data-start=&quot;1276&quot;&gt;What:&lt;/em&gt; binary classification loss that takes &lt;strong data-end=&quot;1332&quot; data-start=&quot;1322&quot;&gt;logits&lt;/strong&gt; (internally applies sigmoid).&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;em data-end=&quot;1369&quot; data-start=&quot;1363&quot;&gt;Why:&lt;/em&gt; numerically stable vs. applying sigmoid yourself.&amp;nbsp;&lt;/div&gt;&lt;div&gt;•&amp;nbsp;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1458&quot; data-start=&quot;1424&quot;&gt;Class imbalance (&lt;code data-end=&quot;1455&quot; data-start=&quot;1443&quot;&gt;pos_weight&lt;/code&gt;)&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1468&quot; data-start=&quot;1461&quot;&gt;What:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; up-weight the minority class (e.g., deepfakes).&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1523&quot; data-start=&quot;1517&quot;&gt;Why:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; prevents the model from “winning” by predicting the majority class.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;•&amp;nbsp;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1615&quot; data-start=&quot;1596&quot;&gt;Label smoothing&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1625&quot; data-start=&quot;1618&quot;&gt;What:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; soften hard 0/1 labels a tiny bit.&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1667&quot; data-start=&quot;1661&quot;&gt;Why:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; reduces over-confidence and improves calibration/generalization.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;•&amp;nbsp;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1756&quot; data-start=&quot;1737&quot;&gt;AdamW optimizer&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1766&quot; data-start=&quot;1759&quot;&gt;What:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; Adam with &lt;/span&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1790&quot; data-start=&quot;1777&quot;&gt;decoupled&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; weight decay.&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1811&quot; data-start=&quot;1805&quot;&gt;Why:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; strong default for vision; better regularization than classical Adam.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;•&amp;nbsp;&lt;/span&gt;&lt;strong data-end=&quot;1902&quot; data-start=&quot;1886&quot;&gt;Weight decay&lt;/strong&gt;&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;em data-end=&quot;1912&quot; data-start=&quot;1905&quot;&gt;What:&lt;/em&gt; L2-style penalty on weights.&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;em data-end=&quot;1948&quot; data-start=&quot;1942&quot;&gt;Why:&lt;/em&gt; controls overfitting, especially with high-capacity nets.&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;•&amp;nbsp;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2037&quot; data-start=&quot;2011&quot;&gt;Warm-up → Cosine decay&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2047&quot; data-start=&quot;2040&quot;&gt;What:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; small LR at start, then smoothly decays.&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2095&quot; data-start=&quot;2089&quot;&gt;Why:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; stabilizes early steps and usually gives better final accuracy; OneCycle is a solid short-run alternative.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;•&amp;nbsp;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2228&quot; data-start=&quot;2207&quot;&gt;Gradient clipping&amp;nbsp;&lt;/strong&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2238&quot; data-start=&quot;2231&quot;&gt;What:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; cap gradient norm (e.g., 1.0).&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2276&quot; data-start=&quot;2270&quot;&gt;Why:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; prevents rare exploding updates that destabilize training.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;•&amp;nbsp;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2365&quot; data-start=&quot;2340&quot;&gt;AMP (mixed precision)&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2375&quot; data-start=&quot;2368&quot;&gt;What:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; train with float16/32 automatically.&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2419&quot; data-start=&quot;2413&quot;&gt;Why:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; faster training and lower VRAM with similar accuracy.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;•&amp;nbsp;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2507&quot; data-start=&quot;2478&quot;&gt;EMA of weights (optional)&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2517&quot; data-start=&quot;2510&quot;&gt;What:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; keep a moving-average copy of weights.&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2563&quot; data-start=&quot;2557&quot;&gt;Why:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; smoother, often slightly better validation; enable for longer/noisier runs, skip if no benefit.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;•&amp;nbsp;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2696&quot; data-start=&quot;2664&quot;&gt;Model selection / early stop&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2706&quot; data-start=&quot;2699&quot;&gt;What:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; pick checkpoint by &lt;/span&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2744&quot; data-start=&quot;2726&quot;&gt;validation AUC&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; (keep last N), optional patience.&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;2785&quot; data-start=&quot;2779&quot;&gt;Why:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; best generalization and repeatable results.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;Math&amp;nbsp;&lt;/div&gt;&lt;div&gt;• Sigmoid: σ(z)=1/(1+e^{−z})&amp;nbsp;&lt;/div&gt;&lt;div&gt;• Weighted BCE (with smoothing y~=(1−ε)y+0.5ε): L = −[ α·y~·log σ(z) + (1−y~)·log(1−σ(z)) ] (α≈N_neg/N_pos)&amp;nbsp;&lt;/div&gt;&lt;div&gt;• AdamW moments: m_t=β₁m_{t−1}+(1−β₁)g_t; v_t=β₂v_{t−1}+(1−β₂)g_t² θ ← θ − η ( m̂/(√v̂+ε) + λθ )&amp;nbsp;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Math → Code variables&amp;nbsp;&lt;/div&gt;&lt;div&gt;• Sigmoid meaning (for intuition): `sigmoid = 1 / (1 + exp(-logits))`  (but BCEWithLogits handles this internally).&amp;nbsp;&lt;/div&gt;&lt;div&gt;• Weighted BCE: `loss = - (pos_weight * y_smooth * log(sigmoid) + (1 - y_smooth) * log(1 - sigmoid))`   (Implemented via `BCEWithLogitsLoss` with `pos_weight` and `target=y_smooth`).&amp;nbsp;&lt;/div&gt;&lt;div&gt;• AdamW moments (per parameter):   `exp_avg   = beta1 * exp_avg   + (1 - beta1) * grad`   `exp_avg_sq= beta2 * exp_avg_sq+ (1 - beta2) * grad * grad`   `bias_correction1 = 1 - beta1**step`   `bias_correction2 = 1 - beta2**step`   `exp_avg_hat   = exp_avg   / bias_correction1`   `exp_avg_sq_hat= exp_avg_sq/ bias_correction2`   `param -= lr * ( exp_avg_hat / (sqrt(exp_avg_sq_hat) + eps) + wd * param )`&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;• EMA (possible addition to future versions): `ema_param = ema_decay * ema_param + (1 - ema_decay) * param`.&amp;nbsp;&lt;/div&gt;&lt;div&gt;This maybe added for when training requires more than a few epochs (If a more powerful model architecture such as B7 is used. This is optional and should be used if it stablizes validation matrics. No point in using this in B0 as it will only increase code complexity and add steps without much of a return)&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Conclusion&lt;/div&gt;&lt;div&gt;Compute a loss from `logits` and labels, update `params` with AdamW (smaller steps over time via the scheduler), and save the checkpoint with the best validation AUC.&lt;/div&gt;" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;strokeColor=#9e9e9e;fillColor=#fafafa;align=left;" vertex="1" parent="4">
+          <mxGeometry x="490" y="730" width="740" height="960" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-101" value="&lt;b&gt;WEIGHTS &amp;amp; INITIALIZATION&amp;nbsp;&amp;nbsp;&lt;/b&gt;&lt;div&gt;&lt;b&gt;General&amp;nbsp;&lt;/b&gt;&lt;/div&gt;&lt;div&gt;• Weights = the model’s adjustable numbers (tensors in `model.parameters()`).&lt;/div&gt;&lt;div&gt;• Initialization picks a starting point; training on CelebDFv2 updates them.&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Parts &amp;amp; Why&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;b&gt;• Architecture vs weights:&lt;/b&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;216&quot; data-start=&quot;209&quot;&gt;What:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; EfficientNet-B0 is the layer layout; &lt;/span&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;265&quot; data-start=&quot;254&quot;&gt;weights&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; are the numbers inside those layers.&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;309&quot; data-start=&quot;303&quot;&gt;Why:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; Training only changes the weights; the architecture stays the same.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;•&amp;nbsp;&lt;/span&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;412&quot; data-start=&quot;382&quot;&gt;Pretrained init (ImageNet)&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;422&quot; data-start=&quot;415&quot;&gt;What:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; start from weights learned on generic images.&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;475&quot; data-start=&quot;469&quot;&gt;Why:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; faster convergence and better features when data is limited; strong baseline for CelebDFv2&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;•&amp;nbsp;&lt;/span&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;601&quot; data-start=&quot;572&quot;&gt;Scratch init (He/Kaiming)&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;611&quot; data-start=&quot;604&quot;&gt;What:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; random starting weights.&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;643&quot; data-start=&quot;637&quot;&gt;Why:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; use when you want no external bias or the domain is very different; needs more epochs.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;•&amp;nbsp;&lt;/span&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;765&quot; data-start=&quot;735&quot;&gt;Freeze → unfreeze schedule&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;775&quot; data-start=&quot;768&quot;&gt;What:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; lock backbone layers for a few epochs, then fine-tune all.&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;841&quot; data-start=&quot;835&quot;&gt;Why:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; stabilizes early training and avoids “forgetting” useful pretrained features.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;strong data-end=&quot;948&quot; data-start=&quot;924&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); font-weight: normal;&quot;&gt;•&amp;nbsp;&lt;/span&gt;Checkpointing (.pth)&lt;/strong&gt;&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;em data-end=&quot;958&quot; data-start=&quot;951&quot;&gt;What:&lt;/em&gt; save &lt;code data-end=&quot;978&quot; data-start=&quot;964&quot;&gt;state_dict()&lt;/code&gt; (often with optimizer/scheduler).&amp;nbsp;&lt;/div&gt;&lt;div&gt;&lt;em data-end=&quot;1019&quot; data-start=&quot;1013&quot;&gt;Why:&lt;/em&gt; resume training and deploy &lt;strong data-end=&quot;1062&quot; data-start=&quot;1047&quot;&gt;best-by-AUC&lt;/strong&gt; model reproducibly.&lt;/div&gt;&lt;div&gt;&lt;div&gt;•&amp;nbsp;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;/span&gt;&lt;strong style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1109&quot; data-start=&quot;1087&quot;&gt;Seed &amp;amp; determinism&lt;/strong&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; — &lt;/span&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1119&quot; data-start=&quot;1112&quot;&gt;What:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; fix random seeds for torch/cuda. &lt;/span&gt;&lt;em style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot; data-end=&quot;1159&quot; data-start=&quot;1153&quot;&gt;Why:&lt;/em&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt; comparable runs and easier debugging.&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Math&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;• Start θ₀ ~ init (pretrained or random)&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;• Update rule each step: θ ← θ − η ∇θ L(θ)&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;• Transfer learning: θ ← θ_pretrained; some layers fixed for t&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Math → Code variables&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;• Start: `params = pretrained_params`  or  `params = random_init()`&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;• Update each step (conceptually): `param -= lr * grad_param`&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;• Transfer learning: `params = pretrained_params`; keep some layers frozen for `t &amp;lt; freeze_epochs`.&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;&lt;br&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Conclusion:&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Start from pretrained or random weights, then keep improving `params` on CelebDFv2 and save the best snapshot.&lt;/span&gt;&lt;/div&gt;" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;strokeColor=#9e9e9e;fillColor=#fafafa;align=left;" vertex="1" parent="4">
+          <mxGeometry x="550" y="50" width="560" height="650" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-102" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.997;entryY=0.874;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="4" source="yOs-LsGh22BtAQMQu9jn-100" target="23">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="Inference &amp; Reporting" style="swimlane;startSize=28;rounded=1;shadow=0;html=1;fillColor=#f5f5f5;strokeColor=#b3b3b3;" parent="1" vertex="1">
+          <mxGeometry x="1820" y="60" width="650" height="1070" as="geometry" />
+        </mxCell>
+        <mxCell id="37" value="1) Input Video" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#1a73e8;fillColor=#dae8fc;" parent="5" vertex="1">
+          <mxGeometry x="380" y="70" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="38" value="2) Frame Sampler N frames/sec" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#fb8c00;fillColor=#ffe6cc;" parent="5" vertex="1">
+          <mxGeometry x="380" y="180" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="39" value="3) Face Detect (MTCNN)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#fb8c00;fillColor=#ffe6cc;" parent="5" vertex="1">
+          <mxGeometry x="380" y="290" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="40" value="4) EfficientNet-B0 Inference" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#2e7d32;fillColor=#d5e8d4;" parent="5" vertex="1">
+          <mxGeometry x="380" y="400" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="42" value="6) Aggregate Scores mean • median • top-k" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#fb8c00;fillColor=#ffe6cc;" parent="5" vertex="1">
+          <mxGeometry x="380" y="660" width="180" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="43" value="7) Threshold Decision (median ≤ 0.40 ⇒ real; otherwise ⇒ fake)" style="whiteSpace=wrap;html=1;strokeColor=#8e24aa;fillColor=#e1bee7;shape=rhombus;" parent="5" vertex="1">
+          <mxGeometry x="336.25" y="750" width="267.5" height="150" as="geometry" />
+        </mxCell>
+        <mxCell id="45" value="Load Best Checkpoint (.pth)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#6c757d;fillColor=#eeeeee;shape=mxgraph.flowchart.data;" parent="5" vertex="1">
+          <mxGeometry x="30" y="400" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="47" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="5" source="37" target="38" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="5" source="38" target="39" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="49" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="5" source="39" target="40" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="52" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="5" source="42" target="43" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="55" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="5" source="45" target="40" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="41" value="5) Per-Frame Scores (0..1)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#6c757d;fillColor=#eeeeee;shape=mxgraph.flowchart.data;" parent="5" vertex="1">
+          <mxGeometry x="380" y="530" width="180" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="50" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="5" source="40" target="41" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="51" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="5" source="41" target="42" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="44" value="8) Outputs verdict: Real/Fake • preds/scored.csv (optional overlay)" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#673ab7;fillColor=#e1d5e7;" parent="5" vertex="1">
+          <mxGeometry x="370" y="920" width="200" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="53" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="5" source="43" target="44" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="27" target="45" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="600" y="1770" />
+              <mxPoint x="1940" y="1770" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-73" value="Augmentation Pipeline" style="swimlane;startSize=20;rounded=1;shadow=0;html=1;fillColor=#f5f5f5;strokeColor=#b3b3b3;" vertex="1" parent="1">
+          <mxGeometry x="-40" y="2080" width="2340" height="320" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-74" value="1) Receive batch from DataLoader shape: B×3×224×224" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#6c757d;fillColor=#eeeeee;shape=mxgraph.flowchart.data;" vertex="1" parent="yOs-LsGh22BtAQMQu9jn-73">
+          <mxGeometry x="20" y="60" width="220" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-75" value="2) Geometric jitter (small) • RandomHorizontalFlip(p=0.5) • RandomRotation(±5°) • RandomAffine: translate ≤2%, scale 0.95–1.05" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#fb8c00;fillColor=#ffe6cc;" vertex="1" parent="yOs-LsGh22BtAQMQu9jn-73">
+          <mxGeometry x="290" y="50" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-76" value="3) Photometric jitter • ColorJitter (b,c,s,h) • RandomGrayscale(p=0.1) • Gamma/Contrast shift (light)" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#fb8c00;fillColor=#ffe6cc;" vertex="1" parent="yOs-LsGh22BtAQMQu9jn-73">
+          <mxGeometry x="540" y="50" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-77" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="yOs-LsGh22BtAQMQu9jn-73" source="yOs-LsGh22BtAQMQu9jn-74" target="yOs-LsGh22BtAQMQu9jn-75">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-78" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="yOs-LsGh22BtAQMQu9jn-73" source="yOs-LsGh22BtAQMQu9jn-75" target="yOs-LsGh22BtAQMQu9jn-76">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-79" value="Config (from Training): • per-transform prob p • ranges (angles, sigma, quality) • order • seed" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;strokeColor=#9e9e9e;fillColor=#fafafa;" vertex="1" parent="yOs-LsGh22BtAQMQu9jn-73">
+          <mxGeometry x="1050" y="205" width="230" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-80" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="yOs-LsGh22BtAQMQu9jn-73" source="yOs-LsGh22BtAQMQu9jn-79" target="yOs-LsGh22BtAQMQu9jn-75">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-81" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="yOs-LsGh22BtAQMQu9jn-73" source="yOs-LsGh22BtAQMQu9jn-79" target="yOs-LsGh22BtAQMQu9jn-76">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-82" value="4) Quality/Noise simulation • GaussianBlur(σ 0.1–1.5) • JPEG compression (Q 40–90) • Gaussian/Poisson noise" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#fb8c00;fillColor=#ffe6cc;" vertex="1" parent="yOs-LsGh22BtAQMQu9jn-73">
+          <mxGeometry x="810" y="50" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-83" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="yOs-LsGh22BtAQMQu9jn-73" source="yOs-LsGh22BtAQMQu9jn-79" target="yOs-LsGh22BtAQMQu9jn-82">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-84" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="yOs-LsGh22BtAQMQu9jn-73" source="yOs-LsGh22BtAQMQu9jn-76" target="yOs-LsGh22BtAQMQu9jn-82">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-85" value="5) Occlusion (optional, gentle) • RandomErasing / CoarseDropout(p≤0.2) • small box ≤10% area" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#fb8c00;fillColor=#ffe6cc;" vertex="1" parent="yOs-LsGh22BtAQMQu9jn-73">
+          <mxGeometry x="1055" y="55" width="220" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-86" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="yOs-LsGh22BtAQMQu9jn-73" source="yOs-LsGh22BtAQMQu9jn-82" target="yOs-LsGh22BtAQMQu9jn-85">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-87" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="yOs-LsGh22BtAQMQu9jn-73" source="yOs-LsGh22BtAQMQu9jn-79" target="yOs-LsGh22BtAQMQu9jn-85">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-88" value="6) Clamp/Normalize for model • clip to [0,1] • normalize mean/std (if needed) • ensure size 224×224" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=#fb8c00;fillColor=#ffe6cc;" vertex="1" parent="yOs-LsGh22BtAQMQu9jn-73">
+          <mxGeometry x="1320" y="50" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-89" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="yOs-LsGh22BtAQMQu9jn-73" source="yOs-LsGh22BtAQMQu9jn-85" target="yOs-LsGh22BtAQMQu9jn-88">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-90" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="yOs-LsGh22BtAQMQu9jn-73" source="yOs-LsGh22BtAQMQu9jn-79" target="yOs-LsGh22BtAQMQu9jn-88">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-91" value="7) Emit augmented batch → Forward pass" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=#2e7d32;fillColor=#d5e8d4;" vertex="1" parent="yOs-LsGh22BtAQMQu9jn-73">
+          <mxGeometry x="1570" y="60" width="470" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="yOs-LsGh22BtAQMQu9jn-92" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="yOs-LsGh22BtAQMQu9jn-73" source="yOs-LsGh22BtAQMQu9jn-88" target="yOs-LsGh22BtAQMQu9jn-91">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
