@@ -1,6 +1,6 @@
 # Fake Image/Video Detector (Prototype)
 
-A small FastAPI service that scores images/videos as real vs. fake using an EfficientNet-B0–based classifier.
+A small FastAPI service that scores images/videos as real vs. fake using an EfficientNet-B0–based classifier (initial prototype).
 
 ## Quick start (Docker, CPU)
 
