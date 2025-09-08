@@ -1,0 +1,38 @@
+seed: 1337
+
+model:
+  name: "efficientnet_b0"
+  pretrained: true
+  drop_rate: 0.2
+  drop_path_rate: 0.1
+  num_classes: 1
+  in_chans: 3
+
+  # training-only knobs (kept here so one file can do both train and infer)
+  freeze_backbone_epochs: 0
+  pos_weight: 0.1634
+
+train:
+  # The code already respects this: "cuda" if available, else cpu/mps
+  device: "auto"
+  mixed_precision: true          # only takes effect on CUDA, harmless on CPU
+  batch_size: 32
+  num_workers: 0                  # start at 0; raise to 4–8 on Linux if stable
+  epochs: 5
+
+  # Optimizer
+  lr: 0.0003
+  weight_decay: 0.0001
+
+  # Save inside the container workspace (you’ll mount it from the host)
+  ckpt_dir: "/workspace/checkpoints/effb0"
+
+  # Optional; training-side only
+  label_smoothing: 0.0
+
+data:
+  # IMPORTANT: mount your dataset at /data when running Docker
+  root: "/data"                   # used if your CSVs have relative paths
+  train_csv: "crops/train.csv"    # relative to data.root
+  val_csv:   "crops/val.csv"      # relative to data.root
+  img_size: 224

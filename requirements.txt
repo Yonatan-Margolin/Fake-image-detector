@@ -1,0 +1,16 @@
+# --- Core ---
+numpy==1.26.4
+pandas==2.2.2
+pillow==10.2.0            # <= keep <= 10.2 for facenet-pytorch 2.6.0
+opencv-python-headless==4.9.0.80
+pyyaml
+rich
+timm==0.9.16
+scikit-learn==1.4.2
+facenet-pytorch==2.6.0
+
+
+# --- Optional API (only if you want FastAPI) ---
+fastapi==0.111.0
+uvicorn[standard]==0.30.0
+python-multipart==0.0.9

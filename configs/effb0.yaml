@@ -1,0 +1,35 @@
+seed: 1337
+
+model:
+  name: "efficientnet_b0"
+  pretrained: true
+  drop_rate: 0.2
+  drop_path_rate: 0.1
+  num_classes: 1
+  in_chans: 3
+
+  # These must live under `model` because the code does cfg["model"].get(...)
+  freeze_backbone_epochs: 0
+  pos_weight: 0.1634
+
+train:
+  device: "auto"           # picks cuda if available, else cpu (and mps on Apple)
+  mixed_precision: true    # safe to turn on; only activates on CUDA
+  batch_size: 32
+  num_workers: 0              # Windows? start with 0; increase later if stable
+  epochs: 5
+
+  # Scalars should be plain numbers
+  lr: 0.0003
+  weight_decay: 0.0001
+
+  ckpt_dir: "checkpoints/effb0"
+
+  # optional, but keep here for clarity (training-side thing)
+  label_smoothing: 0.0
+
+data:
+  train_csv: "F:/datasets/CelebDFv2/crops/train.csv"
+  val_csv:   "F:/datasets/CelebDFv2/crops/val.csv"
+  img_size: 224
+  root: ""   # optional; fine as empty because the CSVs use absolute paths

@@ -1,0 +1,36 @@
+# IDE
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Data / artifacts
+data/
+datasets/
+preds/
+outputs/
+logs/
+*.log
+
+# Model weights & checkpoints
+checkpoints/
+weights/
+*.pt
+*.onnx
+
+# Local config/env
+.env
+*.local.yaml
+
+# Build
+dist/
+build/
